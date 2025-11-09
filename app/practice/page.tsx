@@ -79,6 +79,29 @@ export default function PracticePage() {
     }
   };
 
+  const deleteSentence = async (id: number) => {
+    if (!confirm('Are you sure you want to permanently delete this sentence?')) {
+      return;
+    }
+
+    try {
+      await fetch('/api/sentences', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      // Update local state
+      setAllSentences(prev => prev.filter(s => s.id !== id));
+      setPracticeQueue(prev => prev.filter(s => s.id !== id));
+    } catch (error) {
+      console.error('Error deleting sentence:', error);
+      alert('Failed to delete sentence. Please try again.');
+    }
+  };
+
   const currentSentence = practiceQueue[currentIndex];
 
   if (loading) {
@@ -158,6 +181,13 @@ export default function PracticePage() {
                           {sentence.english}
                         </p>
                       </div>
+                      <button
+                        onClick={() => deleteSentence(sentence.id)}
+                        className="mt-1 px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded transition-colors flex-shrink-0"
+                        title="Delete sentence"
+                      >
+                        Delete
+                      </button>
                     </div>
                   ))}
                 </div>
