@@ -8,22 +8,31 @@ export default function Home() {
           Say It English
         </h1>
         <p className="max-w-md text-lg text-gray-700 dark:text-gray-300">
-          Practice speaking English by translating Japanese sentences
+          Build your English vocabulary with AI-powered practice
         </p>
 
         <div className="flex flex-col gap-4 w-full max-w-md mt-8">
           <Link
             href="/input"
-            className="flex items-center justify-center px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-colors"
+            className="flex flex-col items-center justify-center px-8 py-4 bg-indigo-600 text-white rounded-lg shadow-lg hover:bg-indigo-700 transition-colors"
           >
-            Add New Sentences
+            <span className="text-lg font-semibold">🇯🇵 → 🇬🇧 Japanese to English</span>
+            <span className="text-sm mt-1 opacity-90">Speak Japanese, get English translation</span>
+          </Link>
+
+          <Link
+            href="/english-input"
+            className="flex flex-col items-center justify-center px-8 py-4 bg-purple-600 text-white rounded-lg shadow-lg hover:bg-purple-700 transition-colors"
+          >
+            <span className="text-lg font-semibold">📚 English Word in Context</span>
+            <span className="text-sm mt-1 opacity-90">Speak English word, get example sentence</span>
           </Link>
 
           <Link
             href="/practice"
             className="flex items-center justify-center px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-green-700 transition-colors"
           >
-            Practice English
+            Practice Sentences
           </Link>
         </div>
       </main>
