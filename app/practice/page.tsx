@@ -210,7 +210,7 @@ export default function PracticePage() {
             </div>
 
             <div className="bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900 dark:to-purple-900 rounded-lg p-8 mb-6 min-h-48 flex items-center justify-center">
-              <p className="text-3xl text-gray-900 dark:text-white text-center font-medium">
+              <p className="text-xl text-gray-900 dark:text-white text-center font-medium">
                 {currentSentence.japanese}
               </p>
             </div>
