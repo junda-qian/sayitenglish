@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "SentencePair" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "japanese" TEXT NOT NULL,
+    "english" TEXT NOT NULL,
+    "isChecked" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
