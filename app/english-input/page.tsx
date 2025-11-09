@@ -6,6 +6,7 @@ import Link from 'next/link';
 export default function EnglishInputPage() {
   const [isListening, setIsListening] = useState(false);
   const [englishWord, setEnglishWord] = useState('');
+  const [typedWord, setTypedWord] = useState('');
   const [generatedEnglish, setGeneratedEnglish] = useState('');
   const [japanese, setJapanese] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -91,6 +92,18 @@ export default function EnglishInputPage() {
     }
   };
 
+  const handleTextSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!typedWord.trim()) {
+      setError('Please enter a word or phrase');
+      return;
+    }
+
+    setEnglishWord(typedWord.trim());
+    await generateAndTranslate(typedWord.trim());
+    setTypedWord(''); // Clear input after submission
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-2xl mx-auto px-4 py-8">
@@ -107,11 +120,11 @@ export default function EnglishInputPage() {
           Learn English Word in Context
         </h1>
         <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-          Say an English word or phrase to generate a natural example sentence
+          Say or type an English word or phrase to generate a natural example sentence
         </p>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <button
               onClick={startListening}
               disabled={isListening || isGenerating}
@@ -127,6 +140,32 @@ export default function EnglishInputPage() {
               {isListening ? '🎤 Listening...' : isGenerating ? 'Generating...' : '🎤 Speak English Word'}
             </button>
           </div>
+
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600"></div>
+            <span className="text-gray-500 dark:text-gray-400 font-medium">OR</span>
+            <div className="flex-1 h-px bg-gray-300 dark:bg-gray-600"></div>
+          </div>
+
+          <form onSubmit={handleTextSubmit} className="mb-8">
+            <div className="flex gap-3">
+              <input
+                type="text"
+                value={typedWord}
+                onChange={(e) => setTypedWord(e.target.value)}
+                placeholder="Type an English word or phrase..."
+                disabled={isGenerating || isListening}
+                className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              />
+              <button
+                type="submit"
+                disabled={isGenerating || isListening || !typedWord.trim()}
+                className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Generate
+              </button>
+            </div>
+          </form>
 
           {error && (
             <div className="mb-4 p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200 rounded-lg">
